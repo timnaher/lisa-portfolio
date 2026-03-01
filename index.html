@@ -275,10 +275,10 @@
   .edu-note { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; font-style: italic; }
 
   /* ── PUBLICATIONS ── */
-  .pub-filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+  .pub-filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
   .pub-filter-btn {
-    font-family: var(--font-body); font-size: 12px; font-weight: 500;
-    padding: 4px 12px; border-radius: 16px;
+    font-family: var(--font-body); font-size: 11px; font-weight: 500;
+    padding: 3px 10px; border-radius: 16px;
     border: 1px solid var(--border); background: transparent;
     color: var(--text-secondary); cursor: pointer; transition: all 0.2s;
   }
@@ -286,30 +286,33 @@
   .pub-filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
   .pub-item {
-    padding: 16px 0; border-bottom: 1px solid var(--border);
+    padding: 8px 0; border-bottom: 1px solid var(--border);
   }
   .pub-item:last-child { border-bottom: none; }
   .pub-title {
-    font-family: var(--font-display); font-size: 15px; font-weight: 500;
-    line-height: 1.4; color: var(--text); margin-bottom: 3px; letter-spacing: -0.01em;
+    font-family: var(--font-display); font-size: 14px; font-weight: 500;
+    line-height: 1.3; color: var(--text); margin-bottom: 1px; letter-spacing: -0.01em;
   }
-  .pub-authors { font-size: 13px; color: var(--text-secondary); margin-bottom: 4px; }
+  .pub-authors { font-size: 12px; color: var(--text-secondary); margin-bottom: 2px; }
   .pub-authors .me { font-weight: 600; color: var(--text); }
-  .pub-venue { font-size: 13px; font-weight: 500; color: var(--accent); margin-bottom: 4px; }
+  .pub-venue-inline { font-weight: 500; color: var(--accent); }
+  .pub-meta {
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  }
   .pub-abstract {
-    font-size: 13px; color: var(--text-tertiary); line-height: 1.6;
-    margin-bottom: 6px; display: none;
+    font-size: 12px; color: var(--text-tertiary); line-height: 1.5;
+    margin: 4px 0; display: none;
   }
   .pub-abstract.open { display: block; }
-  .pub-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 6px; }
+  .pub-tags { display: flex; gap: 3px; flex-wrap: wrap; }
   .pub-tag {
-    font-size: 11px; padding: 2px 8px; border-radius: 10px;
+    font-size: 10px; padding: 1px 6px; border-radius: 8px;
     background: var(--tag-bg); color: var(--text-tertiary); font-weight: 500;
   }
-  .pub-links { display: flex; gap: 6px; }
+  .pub-links { display: flex; gap: 4px; }
   .pub-link {
-    font-size: 12px; font-weight: 500; color: var(--accent);
-    text-decoration: none; padding: 2px 8px; border-radius: 4px;
+    font-size: 11px; font-weight: 500; color: var(--accent);
+    text-decoration: none; padding: 1px 6px; border-radius: 4px;
     border: 1px solid var(--border); transition: all 0.2s;
     cursor: pointer; background: none; font-family: var(--font-body);
   }
@@ -456,7 +459,7 @@
       <ul class="news-list">
         <li class="news-item fade-in">
           <span class="news-date">2025</span>
-          <span class="news-text">Published <strong>SODEEP</strong> &mdash; a lightweight causal CNN for real-time slow oscillation detection, presented at <strong>Society for Neuroscience</strong>.</span>
+          <span class="news-text">Presented <strong>SODEEP</strong> &mdash; a lightweight causal CNN for real-time slow oscillation detection at <strong>Society for Neuroscience</strong>.</span>
         </li>
         <li class="news-item fade-in">
           <span class="news-date">Jun 2025</span>
@@ -672,97 +675,71 @@
 
         <div class="pub-item fade-in" data-tags="deep-learning sleep">
           <div class="pub-title">SODEEP: A lightweight causal CNN for real-time slow oscillation detection</div>
-          <div class="pub-authors"><span class="me">L. Bastian</span> et al.</div>
-          <div class="pub-venue">Society for Neuroscience, 2025</div>
-          <div class="pub-abstract" id="abs-1">Developed a lightweight causal convolutional neural network for real-time detection and phase prediction in EEG time-series data. The model operates under strict causality and millisecond-level latency constraints, enabling online inference on streaming data. Emphasized robustness to noise, non-stationarity, and limited context, with validation focused on timing accuracy and out-of-sample performance.</div>
-          <div class="pub-tags">
+          <div class="pub-authors"><span class="me">L. Bastian</span> et al. &mdash; <span class="pub-venue-inline">Society for Neuroscience, 2025</span></div>
+          <div class="pub-abstract" id="abs-1">Developed a lightweight causal convolutional neural network for real-time detection and phase prediction in EEG time-series data. The model operates under strict causality and millisecond-level latency constraints, enabling online inference on streaming data.</div>
+          <div class="pub-meta">
             <span class="pub-tag">Deep Learning</span>
             <span class="pub-tag">Real-Time</span>
             <span class="pub-tag">EEG</span>
-          </div>
-          <div class="pub-links">
             <button class="pub-link" onclick="toggleAbstract('abs-1', this)">abstract</button>
           </div>
         </div>
 
         <div class="pub-item fade-in" data-tags="bci">
-          <div class="pub-title">Sensitive and specific fNIRS-based approach for awareness detection in disorders of consciousness: proof of principle in healthy adults</div>
-          <div class="pub-authors"><span class="me">L. Bastian</span> et al.</div>
-          <div class="pub-venue">Optica Publishing Group, 2025</div>
-          <div class="pub-abstract" id="abs-2">Built an end-to-end, individualized command-following diagnostic pipeline for awareness detection from fNIRS, spanning acquisition-aware preprocessing, covariance (SPD) feature construction, Riemannian tangent-space mapping, and classification. Validated a clinically deployable workflow emphasizing high sensitivity/specificity, minimal setup burden, and rapid, session-specific model fitting to deliver actionable bedside decisions.</div>
-          <div class="pub-tags">
-            <span class="pub-tag">fNIRS</span>
-            <span class="pub-tag">BCI</span>
-            <span class="pub-tag">Riemannian Geometry</span>
-          </div>
-          <div class="pub-links">
+          <div class="pub-title">Sensitive and specific fNIRS-based approach for awareness detection in disorders of consciousness</div>
+          <div class="pub-authors"><span class="me">L. Bastian</span> et al. &mdash; <span class="pub-venue-inline">Optica Publishing Group, 2025</span></div>
+          <div class="pub-abstract" id="abs-2">Built an end-to-end, individualized command-following diagnostic pipeline for awareness detection from fNIRS, spanning acquisition-aware preprocessing, covariance (SPD) feature construction, Riemannian tangent-space mapping, and classification.</div>
+          <div class="pub-meta">
+            <span class="pub-tag">fNIRS</span><span class="pub-tag">BCI</span><span class="pub-tag">Riemannian</span>
             <button class="pub-link" onclick="toggleAbstract('abs-2', this)">abstract</button>
           </div>
         </div>
 
         <div class="pub-item fade-in" data-tags="sleep">
           <div class="pub-title">Closed-loop transcutaneous vagus nerve stimulation of the sleep slow oscillation</div>
-          <div class="pub-authors"><span class="me">L. Bastian</span> et al.</div>
-          <div class="pub-venue">Brain Stimulation, 2025</div>
-          <div class="pub-tags">
-            <span class="pub-tag">Sleep</span>
-            <span class="pub-tag">Closed-Loop</span>
-            <span class="pub-tag">Stimulation</span>
+          <div class="pub-authors"><span class="me">L. Bastian</span> et al. &mdash; <span class="pub-venue-inline">Brain Stimulation, 2025</span></div>
+          <div class="pub-meta">
+            <span class="pub-tag">Sleep</span><span class="pub-tag">Closed-Loop</span><span class="pub-tag">Stimulation</span>
           </div>
         </div>
 
         <div class="pub-item fade-in" data-tags="bci">
           <div class="pub-title">Riemannian Geometry for the classification of brain states with fNIRS</div>
-          <div class="pub-authors"><span class="me">L. Bastian</span> et al.</div>
-          <div class="pub-venue">Neurophotonics, 2025</div>
-          <div class="pub-tags">
-            <span class="pub-tag">fNIRS</span>
-            <span class="pub-tag">Riemannian Geometry</span>
-            <span class="pub-tag">Classification</span>
+          <div class="pub-authors"><span class="me">L. Bastian</span> et al. &mdash; <span class="pub-venue-inline">Neurophotonics, 2025</span></div>
+          <div class="pub-meta">
+            <span class="pub-tag">fNIRS</span><span class="pub-tag">Riemannian</span><span class="pub-tag">Classification</span>
           </div>
         </div>
 
         <div class="pub-item fade-in" data-tags="sleep">
           <div class="pub-title">Development of slow oscillation&ndash;spindle coupling from infancy to toddlerhood</div>
-          <div class="pub-authors"><span class="me">L. Bastian</span> et al.</div>
-          <div class="pub-venue">Sleep Advances, 2024</div>
-          <div class="pub-tags">
-            <span class="pub-tag">Sleep</span>
-            <span class="pub-tag">Development</span>
-            <span class="pub-tag">EEG</span>
+          <div class="pub-authors"><span class="me">L. Bastian</span> et al. &mdash; <span class="pub-venue-inline">Sleep Advances, 2024</span></div>
+          <div class="pub-meta">
+            <span class="pub-tag">Sleep</span><span class="pub-tag">Development</span><span class="pub-tag">EEG</span>
           </div>
         </div>
 
         <div class="pub-item fade-in" data-tags="sleep">
           <div class="pub-title">Long-term memory formation for voices during sleep in three-month-old infants</div>
-          <div class="pub-authors"><span class="me">L. Bastian</span> et al.</div>
-          <div class="pub-venue">Neurobiology of Learning and Memory, 2024</div>
-          <div class="pub-tags">
-            <span class="pub-tag">Sleep</span>
-            <span class="pub-tag">Memory</span>
-            <span class="pub-tag">Infant</span>
+          <div class="pub-authors"><span class="me">L. Bastian</span> et al. &mdash; <span class="pub-venue-inline">Neurobiol. Learn. Mem., 2024</span></div>
+          <div class="pub-meta">
+            <span class="pub-tag">Sleep</span><span class="pub-tag">Memory</span><span class="pub-tag">Infant</span>
           </div>
         </div>
 
         <div class="pub-item fade-in" data-tags="bci">
-          <div class="pub-title">It takes two (seconds): decreasing encoding time for two-choice functional near-infrared spectroscopy brain-computer interface communication</div>
-          <div class="pub-authors"><span class="me">L. Bastian</span> et al.</div>
-          <div class="pub-venue">Neurophotonics, 2023</div>
-          <div class="pub-tags">
-            <span class="pub-tag">fNIRS</span>
-            <span class="pub-tag">BCI</span>
-            <span class="pub-tag">Real-Time</span>
+          <div class="pub-title">It takes two (seconds): decreasing encoding time for fNIRS brain-computer interface</div>
+          <div class="pub-authors"><span class="me">L. Bastian</span> et al. &mdash; <span class="pub-venue-inline">Neurophotonics, 2023</span></div>
+          <div class="pub-meta">
+            <span class="pub-tag">fNIRS</span><span class="pub-tag">BCI</span><span class="pub-tag">Real-Time</span>
           </div>
         </div>
 
         <div class="pub-item fade-in" data-tags="sleep">
-          <div class="pub-title">Spindle-slow oscillation coupling correlates with memory performance and connectivity changes in a hippocampal network after sleep</div>
-          <div class="pub-authors"><span class="me">L. Bastian</span> et al.</div>
-          <div class="pub-venue">Human Brain Mapping, 2022</div>
-          <div class="pub-tags">
-            <span class="pub-tag">Sleep</span>
-            <span class="pub-tag">Memory</span>
-            <span class="pub-tag">Connectivity</span>
+          <div class="pub-title">Spindle-slow oscillation coupling correlates with memory performance in a hippocampal network</div>
+          <div class="pub-authors"><span class="me">L. Bastian</span> et al. &mdash; <span class="pub-venue-inline">Human Brain Mapping, 2022</span></div>
+          <div class="pub-meta">
+            <span class="pub-tag">Sleep</span><span class="pub-tag">Memory</span><span class="pub-tag">Connectivity</span>
           </div>
         </div>
 
