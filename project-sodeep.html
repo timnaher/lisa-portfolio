@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SODEEP: Real-Time SO Detection — Lisa Bastian</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF8; --bg-alt: #F3F2EE; --text: #1A1A1A;
+    --text-secondary: #5C5C5C; --text-tertiary: #8A8A8A;
+    --accent: #2D5A3D; --accent-light: #E8F0EB; --accent-hover: #1E3D2A;
+    --border: #E5E4E0; --card-bg: #FFFFFF; --tag-bg: #EDEDED;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+    --radius: 8px; --max-w: 780px;
+    --font-display: 'Newsreader', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+  }
+  [data-theme="dark"] {
+    --bg: #1B2A3C; --bg-alt: #1E2F42; --text: #D8DEE9;
+    --text-secondary: #9EAFC0; --text-tertiary: #6B8299;
+    --accent: #7EB8DA; --accent-light: #1E3448; --accent-hover: #A8D4F0;
+    --border: #283D52; --card-bg: #1E3044; --tag-bg: #243648;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body); background: var(--bg); color: var(--text);
+    line-height: 1.7; font-size: 15px; font-weight: 400;
+    transition: background 0.3s, color 0.3s; -webkit-font-smoothing: antialiased;
+  }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--bg-alt); border-bottom: 1px solid var(--border);
+    transition: background 0.3s, border 0.3s;
+  }
+  nav .nav-inner {
+    max-width: var(--max-w); margin: 0 auto; padding: 0 24px;
+    height: 56px; display: flex; align-items: center; justify-content: space-between;
+  }
+  nav .nav-name {
+    font-family: var(--font-display); font-size: 18px; font-weight: 500;
+    color: var(--text); text-decoration: none; letter-spacing: -0.01em;
+  }
+  .nav-right { display: flex; align-items: center; gap: 6px; }
+  .back-link {
+    font-size: 13px; font-weight: 400; color: var(--text-secondary);
+    text-decoration: none; padding: 6px 10px; border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .back-link:hover { color: var(--text); background: var(--bg-alt); }
+  .theme-toggle {
+    background: none; border: none; cursor: pointer; color: var(--text-secondary);
+    padding: 6px; border-radius: 6px; display: flex; align-items: center;
+    justify-content: center; transition: color 0.2s, background 0.2s;
+  }
+  .theme-toggle:hover { color: var(--text); background: var(--bg-alt); }
+
+  main { max-width: var(--max-w); margin: 0 auto; padding: 88px 24px 80px; }
+
+  .project-header { margin-bottom: 32px; }
+  .project-label {
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--accent); margin-bottom: 8px;
+  }
+  .project-title {
+    font-family: var(--font-display); font-size: 28px; font-weight: 500;
+    letter-spacing: -0.03em; line-height: 1.25; color: var(--text); margin-bottom: 8px;
+  }
+  .project-authors {
+    font-size: 14px; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.5;
+  }
+  .project-tech { display: flex; flex-wrap: wrap; gap: 6px; }
+  .project-tech-tag {
+    font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 12px;
+    background: var(--accent-light); color: var(--accent); border: 1px solid transparent;
+  }
+
+  .wip-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 12px;
+    background: #FFF3CD; color: #856404; border: 1px solid #FFEEBA;
+    margin-bottom: 16px;
+  }
+  [data-theme="dark"] .wip-badge {
+    background: #3D3520; color: #FFD866; border-color: #5C4A1E;
+  }
+
+  .project-figure {
+    background: #fff; border: 1px solid var(--border); border-radius: 10px;
+    padding: 20px; margin-bottom: 32px; text-align: center;
+  }
+  [data-theme="dark"] .project-figure { background: var(--card-bg); }
+  .project-figure img {
+    max-width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 4px;
+  }
+  .project-figure figcaption {
+    font-size: 12px; color: var(--text-tertiary); margin-top: 12px; line-height: 1.5;
+  }
+
+  .project-section { margin-bottom: 28px; }
+  .project-section h3 {
+    font-family: var(--font-display); font-size: 18px; font-weight: 500;
+    letter-spacing: -0.02em; margin-bottom: 12px; color: var(--text);
+    padding-bottom: 8px; border-bottom: 1px solid var(--border);
+  }
+  .project-section p {
+    font-size: 14px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 10px;
+  }
+  .project-section ul {
+    list-style: none; padding: 0;
+  }
+  .project-section ul li {
+    font-size: 14px; color: var(--text-secondary); padding: 4px 0 4px 18px;
+    position: relative; line-height: 1.6;
+  }
+  .project-section ul li::before {
+    content: ""; position: absolute; left: 0; top: 12px;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); opacity: 0.4;
+  }
+  .project-section ul li strong { color: var(--text); font-weight: 500; }
+
+  .results-table {
+    width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 12px;
+  }
+  .results-table th, .results-table td {
+    padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border);
+  }
+  .results-table th {
+    font-weight: 600; font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.05em; color: var(--text-tertiary);
+  }
+  .results-table td { color: var(--text-secondary); }
+  .results-table td strong { color: var(--text); font-weight: 500; }
+
+  footer {
+    max-width: var(--max-w); margin: 0 auto; padding: 24px 24px 40px;
+    text-align: center; font-size: 12px; color: var(--text-tertiary);
+    border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--text-tertiary); text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-name">Lisa Bastian</a>
+    <div class="nav-right">
+      <a href="index.html#projects" class="back-link">&larr; All Projects</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<div class="project-header">
+  <div class="project-label">Deep Learning &middot; Real-Time Inference &middot; SfN 2025</div>
+  <h1 class="project-title">SODEEP: A Lightweight Causal CNN for Real-Time Slow Oscillation Detection</h1>
+  <div class="project-authors">T. N&auml;her, L. Bastian, J. Born &amp; P. Fries</div>
+  <div class="project-tech" style="margin-bottom: 12px;">
+    <span class="project-tech-tag">PyTorch</span>
+    <span class="project-tech-tag">Causal CNN</span>
+    <span class="project-tech-tag">LSTM</span>
+    <span class="project-tech-tag">Real-Time</span>
+    <span class="project-tech-tag">EEG</span>
+  </div>
+  <div class="wip-badge">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    Work in Progress &mdash; Currently training multi-species foundation models
+  </div>
+</div>
+
+<figure class="project-figure">
+  <img src="assets/sodeep-architecture.png" alt="SODEEP causal CNN architecture with ~100k parameters">
+  <figcaption>SODEEP architecture: stacked causal dilated convolutions with LSTM layers (~100k parameters). Input is causally band-pass filtered single-channel EEG; output is a time series of state probabilities.</figcaption>
+</figure>
+
+<div class="project-section">
+  <h3>Overview</h3>
+  <p>
+    SODEEP is a lightweight causal convolutional neural network for real-time detection of slow oscillations (SOs) in EEG sleep data. The model predicts UP-to-DOWN and DOWN-to-UP state transitions in a sequence-to-sequence classification setup, operating under strict causality constraints with only ~100k parameters and 3&thinsp;ms inference time.
+  </p>
+  <p>
+    Researchers studying the link between sleep and memory increasingly need causal manipulations of oscillatory sleep mechanisms. This requires real-time SO detection with minimal latency and high accuracy. Most existing methods rely on handcrafted algorithmic approaches with heavy filtering and fixed thresholds. SODEEP replaces these with a learned, end-to-end causal model.
+  </p>
+</div>
+
+<div class="project-section">
+  <h3>Key Results</h3>
+  <table class="results-table">
+    <thead>
+      <tr><th>Model</th><th>Precision</th><th>Recall</th><th>F1</th><th>Latency (ms)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Ngo et al. 2013 (classical)</td><td>0.703</td><td>0.538</td><td>0.609</td><td>217</td></tr>
+      <tr><td><strong>SODEEP</strong></td><td><strong>0.978</strong></td><td><strong>0.955</strong></td><td><strong>0.967</strong></td><td><strong>39</strong></td></tr>
+    </tbody>
+  </table>
+  <ul style="margin-top: 16px;">
+    <li><strong>F1 of 0.967</strong> vs. 0.609 for the classical threshold-based algorithm</li>
+    <li><strong>5.5&times; lower latency</strong> (39&thinsp;ms vs. 217&thinsp;ms from SO trough) &mdash; crucial given additional hardware delays</li>
+    <li><strong>3&thinsp;ms inference time</strong> (non-optimized), enabling true real-time closed-loop stimulation</li>
+    <li><strong>Cross-participant generalization</strong> via participant-based data splits</li>
+  </ul>
+</div>
+
+<div class="project-section">
+  <h3>Method</h3>
+  <p>
+    The model takes causally band-pass filtered single-channel EEG (IIR, 1&ndash;25&thinsp;Hz) as input and outputs per-timepoint class probabilities for baseline, UP-to-DOWN, and DOWN-to-UP states. The architecture uses stacked causal dilated convolutions for parameter-efficient large receptive fields, followed by LSTM layers for temporal context.
+  </p>
+  <p>
+    Training uses a custom <strong>focal transition loss</strong> that encodes biological constraints: a transition matrix penalizes impossible state sequences, while a temporal smoothness term penalizes large logit derivatives. Early stopping is based on focal loss, with 5 linear warm-up epochs followed by cosine decay over 100 epochs. Regularization includes dropout (0.1&ndash;0.15) and weight decay (0.001).
+  </p>
+  <p>
+    At inference time, a <strong>causal hysteresis decoder</strong> enforces biologically plausible state sequences: per-class entry thresholds and minimum dwell counts prevent spurious transitions. The first decoded sample of the DOWN-to-UP class serves as the stimulation trigger.
+  </p>
+</div>
+
+<div class="project-section">
+  <h3>Ongoing Work</h3>
+  <p>
+    We are currently scaling the SODEEP approach toward <strong>multi-species foundation-type models</strong> for neural oscillation detection, training on large-scale datasets across species and recording modalities. The goal is a generalizable real-time model that transfers across invasive and non-invasive recordings, different oscillatory phenomena (spindles, ripples), and different species.
+  </p>
+  <p>
+    In parallel, we are collaborating with the Ziemann lab at the University of T&uuml;bingen to implement SODEEP in a <strong>real-time TMS paradigm</strong>.
+  </p>
+</div>
+
+</main>
+
+<footer>&copy; 2026 Lisa Bastian</footer>
+
+<script>
+  function toggleTheme() {
+    const isDark = document.documentElement.hasAttribute('data-theme');
+    if (isDark) { document.documentElement.removeAttribute('data-theme'); localStorage.setItem('theme','light'); }
+    else { document.documentElement.setAttribute('data-theme','dark'); localStorage.setItem('theme','dark'); }
+  }
+  // Initialize theme
+  (function() {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark') document.documentElement.setAttribute('data-theme','dark');
+    else document.documentElement.removeAttribute('data-theme');
+  })();
+</script>
+</body>
+</html>
