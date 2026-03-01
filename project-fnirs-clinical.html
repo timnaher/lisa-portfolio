@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>fNIRS Awareness Detection — Lisa Bastian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF8; --bg-alt: #F3F2EE; --text: #1A1A1A;
+    --text-secondary: #5C5C5C; --text-tertiary: #8A8A8A;
+    --accent: #2D5A3D; --accent-light: #E8F0EB; --accent-hover: #1E3D2A;
+    --border: #E5E4E0; --card-bg: #FFFFFF; --tag-bg: #EDEDED;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+    --radius: 8px; --max-w: 780px;
+    --font-display: 'Newsreader', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+  }
+  [data-theme="dark"] {
+    --bg: #1B2A3C; --bg-alt: #1E2F42; --text: #D8DEE9;
+    --text-secondary: #9EAFC0; --text-tertiary: #6B8299;
+    --accent: #7EB8DA; --accent-light: #1E3448; --accent-hover: #A8D4F0;
+    --border: #283D52; --card-bg: #1E3044; --tag-bg: #243648;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body); background: var(--bg); color: var(--text);
+    line-height: 1.7; font-size: 15px; font-weight: 400;
+    transition: background 0.3s, color 0.3s; -webkit-font-smoothing: antialiased;
+  }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--bg-alt); border-bottom: 1px solid var(--border);
+    transition: background 0.3s, border 0.3s;
+  }
+  nav .nav-inner {
+    max-width: var(--max-w); margin: 0 auto; padding: 0 24px;
+    height: 56px; display: flex; align-items: center; justify-content: space-between;
+  }
+  nav .nav-name {
+    font-family: var(--font-display); font-size: 18px; font-weight: 500;
+    color: var(--text); text-decoration: none; letter-spacing: -0.01em;
+  }
+  .nav-right { display: flex; align-items: center; gap: 6px; }
+  .back-link {
+    font-size: 13px; font-weight: 400; color: var(--text-secondary);
+    text-decoration: none; padding: 6px 10px; border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .back-link:hover { color: var(--text); background: var(--bg-alt); }
+  .theme-toggle {
+    background: none; border: none; cursor: pointer; color: var(--text-secondary);
+    padding: 6px; border-radius: 6px; display: flex; align-items: center;
+    justify-content: center; transition: color 0.2s, background 0.2s;
+  }
+  .theme-toggle:hover { color: var(--text); background: var(--bg-alt); }
+
+  main { max-width: var(--max-w); margin: 0 auto; padding: 88px 24px 80px; }
+
+  .project-header { margin-bottom: 32px; }
+  .project-label {
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--accent); margin-bottom: 8px;
+  }
+  .project-title {
+    font-family: var(--font-display); font-size: 28px; font-weight: 500;
+    letter-spacing: -0.03em; line-height: 1.25; color: var(--text); margin-bottom: 8px;
+  }
+  .project-authors {
+    font-size: 14px; color: var(--text-secondary); margin-bottom: 6px; line-height: 1.5;
+  }
+  .project-venue-link {
+    font-size: 13px; margin-bottom: 12px;
+  }
+  .project-venue-link a {
+    color: var(--accent); text-decoration: none;
+  }
+  .project-venue-link a:hover { text-decoration: underline; }
+  .project-tech { display: flex; flex-wrap: wrap; gap: 6px; }
+  .project-tech-tag {
+    font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 12px;
+    background: var(--accent-light); color: var(--accent); border: 1px solid transparent;
+  }
+
+  .project-figure {
+    background: #fff; border: 1px solid var(--border); border-radius: 10px;
+    padding: 20px; margin-bottom: 32px; text-align: center;
+  }
+  .project-figure img {
+    max-width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 4px;
+  }
+  .project-figure figcaption {
+    font-size: 12px; color: var(--text-tertiary); margin-top: 12px; line-height: 1.5;
+  }
+
+  .project-section { margin-bottom: 28px; }
+  .project-section h3 {
+    font-family: var(--font-display); font-size: 18px; font-weight: 500;
+    letter-spacing: -0.02em; margin-bottom: 12px; color: var(--text);
+    padding-bottom: 8px; border-bottom: 1px solid var(--border);
+  }
+  .project-section p {
+    font-size: 14px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 10px;
+  }
+  .project-section ul {
+    list-style: none; padding: 0;
+  }
+  .project-section ul li {
+    font-size: 14px; color: var(--text-secondary); padding: 4px 0 4px 18px;
+    position: relative; line-height: 1.6;
+  }
+  .project-section ul li::before {
+    content: ""; position: absolute; left: 0; top: 12px;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); opacity: 0.4;
+  }
+  .project-section ul li strong { color: var(--text); font-weight: 500; }
+
+  footer {
+    max-width: var(--max-w); margin: 0 auto; padding: 24px 24px 40px;
+    text-align: center; font-size: 12px; color: var(--text-tertiary);
+    border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--text-tertiary); text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-name">Lisa Bastian</a>
+    <div class="nav-right">
+      <a href="index.html#projects" class="back-link">&larr; All Projects</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<div class="project-header">
+  <div class="project-label">Clinical BCI &middot; Neurophotonics 2025</div>
+  <h1 class="project-title">fNIRS-Based Awareness Detection in Disorders of Consciousness</h1>
+  <div class="project-authors">L. Bastian*, T. N&auml;her* et al.</div>
+  <div class="project-venue-link"><a href="https://www.spiedigitallibrary.org/journals/neurophotonics/volume-12/issue-4/045001/Sensitive-and-specific-fNIRS-based-approach-for-awareness-detection-in/10.1117/1.NPh.12.4.045001.full" target="_blank" rel="noopener">Neurophotonics 12(4) &rarr;</a></div>
+  <div class="project-tech">
+    <span class="project-tech-tag">Clinical BCI</span>
+    <span class="project-tech-tag">Riemannian</span>
+    <span class="project-tech-tag">fNIRS</span>
+    <span class="project-tech-tag">MNE</span>
+  </div>
+</div>
+
+<figure class="project-figure">
+  <img src="assets/fnirs-clinical-figure.png" alt="Clinical fNIRS awareness detection pipeline with Riemannian classification">
+  <figcaption>Individualized fNIRS diagnostic pipeline: from portable bedside cap acquisition through covariance feature construction and Riemannian classification to permutation-based awareness decisions.</figcaption>
+</figure>
+
+<div class="project-section">
+  <h3>Overview</h3>
+  <p>
+    Translated the Riemannian fNIRS framework into a clinical diagnostic tool for patients with disorders of consciousness (DoC). An individualized pipeline with session-specific hyperparameter tuning and permutation-based decisions achieved 100% sensitivity and 89% specificity for awareness detection.
+  </p>
+</div>
+
+<div class="project-section">
+  <h3>Key Results</h3>
+  <ul>
+    <li><strong>Individualized pipeline</strong> with per-participant covariance estimation, Riemannian classifier selection, and stratified cross-validation</li>
+    <li><strong>Permutation-based clinical decision</strong> framework minimizing misdiagnosis rates in DoC</li>
+    <li><strong>100% sensitivity, 89% specificity</strong> for detecting awareness from fNIRS signals</li>
+    <li><strong>Minimal setup burden</strong> &mdash; 2-second encoding, self-chosen motor/speech imagery, portable fNIRS cap for ICU bedside use</li>
+  </ul>
+</div>
+
+<div class="project-section">
+  <h3>Method</h3>
+  <p>
+    Patients with disorders of consciousness are asked to perform mental imagery tasks (motor or speech imagery) while wearing a portable fNIRS cap at bedside. The pipeline extracts SPD covariance features from the hemodynamic response and applies individualized Riemannian classification to detect command-following ability.
+  </p>
+  <p>
+    Critical to clinical deployment: each participant's classifier is tuned independently with session-specific hyperparameters and validated via stratified cross-validation. A permutation testing framework converts classifier accuracy into a statistically grounded clinical decision, balancing sensitivity (detecting awareness) against specificity (avoiding false positives) to minimize the risk of misdiagnosis.
+  </p>
+</div>
+
+</main>
+
+<footer>&copy; 2026 Lisa Bastian</footer>
+
+<script>
+  function toggleTheme() {
+    const isDark = document.documentElement.hasAttribute('data-theme');
+    if (isDark) { document.documentElement.removeAttribute('data-theme'); localStorage.setItem('theme','light'); }
+    else { document.documentElement.setAttribute('data-theme','dark'); localStorage.setItem('theme','dark'); }
+  }
+  (function() {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'light') document.documentElement.removeAttribute('data-theme');
+    else document.documentElement.setAttribute('data-theme','dark');
+  })();
+</script>
+</body>
+</html>

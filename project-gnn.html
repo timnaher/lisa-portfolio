@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GNN Behavioral Classification — Lisa Bastian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF8; --bg-alt: #F3F2EE; --text: #1A1A1A;
+    --text-secondary: #5C5C5C; --text-tertiary: #8A8A8A;
+    --accent: #2D5A3D; --accent-light: #E8F0EB; --accent-hover: #1E3D2A;
+    --border: #E5E4E0; --card-bg: #FFFFFF; --tag-bg: #EDEDED;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+    --radius: 8px; --max-w: 780px;
+    --font-display: 'Newsreader', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+  }
+  [data-theme="dark"] {
+    --bg: #1B2A3C; --bg-alt: #1E2F42; --text: #D8DEE9;
+    --text-secondary: #9EAFC0; --text-tertiary: #6B8299;
+    --accent: #7EB8DA; --accent-light: #1E3448; --accent-hover: #A8D4F0;
+    --border: #283D52; --card-bg: #1E3044; --tag-bg: #243648;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body); background: var(--bg); color: var(--text);
+    line-height: 1.7; font-size: 15px; font-weight: 400;
+    transition: background 0.3s, color 0.3s; -webkit-font-smoothing: antialiased;
+  }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--bg-alt); border-bottom: 1px solid var(--border);
+    transition: background 0.3s, border 0.3s;
+  }
+  nav .nav-inner {
+    max-width: var(--max-w); margin: 0 auto; padding: 0 24px;
+    height: 56px; display: flex; align-items: center; justify-content: space-between;
+  }
+  nav .nav-name {
+    font-family: var(--font-display); font-size: 18px; font-weight: 500;
+    color: var(--text); text-decoration: none; letter-spacing: -0.01em;
+  }
+  .nav-right { display: flex; align-items: center; gap: 6px; }
+  .back-link {
+    font-size: 13px; font-weight: 400; color: var(--text-secondary);
+    text-decoration: none; padding: 6px 10px; border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .back-link:hover { color: var(--text); background: var(--bg-alt); }
+  .theme-toggle {
+    background: none; border: none; cursor: pointer; color: var(--text-secondary);
+    padding: 6px; border-radius: 6px; display: flex; align-items: center;
+    justify-content: center; transition: color 0.2s, background 0.2s;
+  }
+  .theme-toggle:hover { color: var(--text); background: var(--bg-alt); }
+
+  main { max-width: var(--max-w); margin: 0 auto; padding: 88px 24px 80px; }
+
+  .project-header { margin-bottom: 32px; }
+  .project-label {
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--accent); margin-bottom: 8px;
+  }
+  .project-title {
+    font-family: var(--font-display); font-size: 28px; font-weight: 500;
+    letter-spacing: -0.03em; line-height: 1.25; color: var(--text); margin-bottom: 8px;
+  }
+  .project-authors {
+    font-size: 14px; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.5;
+  }
+  .project-tech { display: flex; flex-wrap: wrap; gap: 6px; }
+  .project-tech-tag {
+    font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 12px;
+    background: var(--accent-light); color: var(--accent); border: 1px solid transparent;
+  }
+
+  .project-figure {
+    background: #fff; border: 1px solid var(--border); border-radius: 10px;
+    padding: 20px; margin-bottom: 32px; text-align: center;
+  }
+  .project-figure img {
+    max-width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 4px;
+  }
+  .project-figure figcaption {
+    font-size: 12px; color: var(--text-tertiary); margin-top: 12px; line-height: 1.5;
+  }
+
+  .project-section { margin-bottom: 28px; }
+  .project-section h3 {
+    font-family: var(--font-display); font-size: 18px; font-weight: 500;
+    letter-spacing: -0.02em; margin-bottom: 12px; color: var(--text);
+    padding-bottom: 8px; border-bottom: 1px solid var(--border);
+  }
+  .project-section p {
+    font-size: 14px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 10px;
+  }
+  .project-section ul {
+    list-style: none; padding: 0;
+  }
+  .project-section ul li {
+    font-size: 14px; color: var(--text-secondary); padding: 4px 0 4px 18px;
+    position: relative; line-height: 1.6;
+  }
+  .project-section ul li::before {
+    content: ""; position: absolute; left: 0; top: 12px;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); opacity: 0.4;
+  }
+  .project-section ul li strong { color: var(--text); font-weight: 500; }
+
+  footer {
+    max-width: var(--max-w); margin: 0 auto; padding: 24px 24px 40px;
+    text-align: center; font-size: 12px; color: var(--text-tertiary);
+    border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--text-tertiary); text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-name">Lisa Bastian</a>
+    <div class="nav-right">
+      <a href="index.html#projects" class="back-link">&larr; All Projects</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<div class="project-header">
+  <div class="project-label">Graph Neural Networks &middot; Nature Communications (under review)</div>
+  <h1 class="project-title">Classifying Sleep-Dependent Behavioral Patterns with GNNs</h1>
+  <div class="project-authors">L. Bastian, E.-M. Kurz, L. Gutjahr, H. Noack &amp; J. Born</div>
+  <div class="project-tech">
+    <span class="project-tech-tag">PyTorch Geometric</span>
+    <span class="project-tech-tag">NNConv</span>
+    <span class="project-tech-tag">GNNExplainer</span>
+    <span class="project-tech-tag">Python</span>
+  </div>
+</div>
+
+<figure class="project-figure">
+  <img src="assets/gnn-figure.png" alt="GNN architecture for behavioral pattern classification showing directed graph encoding and NNConv layers">
+  <figcaption>Directed behavioral graphs encode toddlers' action sequences as nodes (11 behavior types) with transition-probability edges, classified via a 3-layer NNConv GNN.</figcaption>
+</figure>
+
+<div class="project-section">
+  <h3>Overview</h3>
+  <p>
+    Modeled toddlers' behavioral sequences as directed graphs (11 node types, transition-probability edges) and trained a 3-layer NNConv GNN to classify sleep vs. wake encoding trials. Achieved 65.8% accuracy (p=0.043); GNNExplainer identified key discriminative behavioral transitions.
+  </p>
+</div>
+
+<div class="project-section">
+  <h3>Key Results</h3>
+  <ul>
+    <li><strong>3-layer NNConv</strong> with shared edge MLPs, ReLU6, combined max &amp; mean pooling over 21 node features, edge probabilities, and 24 graph features</li>
+    <li><strong>73% sensitivity, 67% specificity</strong> validated with 5,000 permutations</li>
+    <li><strong>GNNExplainer</strong> revealed "looking into container" &rarr; "container play" as key discriminative transition</li>
+    <li><strong>Null at familiarization</strong> (50.0%, p=0.739) confirmed specificity to post-sleep behavioral changes</li>
+  </ul>
+</div>
+
+<div class="project-section">
+  <h3>Method</h3>
+  <p>
+    Each behavioral sequence was encoded as a directed graph where nodes represent one of 11 behavioral categories and edge weights correspond to transition probabilities between consecutive actions. Node features (21-dimensional) captured frequency, duration, and sequential properties of each behavior type. Graph-level features (24-dimensional) described global sequence statistics.
+  </p>
+  <p>
+    The NNConv architecture processes these heterogeneous graphs through three message-passing layers with edge-conditioned neural networks, followed by combined max and mean graph-level pooling. Permutation testing (5,000 iterations) provided non-parametric significance, while GNNExplainer attributed classification decisions to specific subgraph motifs.
+  </p>
+</div>
+
+</main>
+
+<footer>&copy; 2026 Lisa Bastian</footer>
+
+<script>
+  function toggleTheme() {
+    const isDark = document.documentElement.hasAttribute('data-theme');
+    if (isDark) { document.documentElement.removeAttribute('data-theme'); localStorage.setItem('theme','light'); }
+    else { document.documentElement.setAttribute('data-theme','dark'); localStorage.setItem('theme','dark'); }
+  }
+  // Initialize theme
+  (function() {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'light') document.documentElement.removeAttribute('data-theme');
+    else document.documentElement.setAttribute('data-theme','dark');
+  })();
+</script>
+</body>
+</html>
