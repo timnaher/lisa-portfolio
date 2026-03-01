@@ -140,13 +140,15 @@
 <main>
 
 <div class="project-header">
-  <div class="project-label">Graph Neural Networks &middot; Nature Communications (under review)</div>
-  <h1 class="project-title">Classifying Sleep-Dependent Behavioral Patterns with GNNs</h1>
+  <div class="project-label">Sleep &middot; Memory &middot; Graph Neural Networks &middot; Nature Communications (under review)</div>
+  <h1 class="project-title">Sleep Forms Flexible Context Representations in Toddlers</h1>
   <div class="project-authors">L. Bastian, E.-M. Kurz, L. Gutjahr, H. Noack &amp; J. Born</div>
   <div class="project-tech">
     <span class="project-tech-tag">PyTorch Geometric</span>
     <span class="project-tech-tag">NNConv</span>
     <span class="project-tech-tag">GNNExplainer</span>
+    <span class="project-tech-tag">Linear Mixed-Effects Models</span>
+    <span class="project-tech-tag">EEG</span>
     <span class="project-tech-tag">Python</span>
   </div>
 </div>
@@ -159,27 +161,41 @@
 <div class="project-section">
   <h3>Overview</h3>
   <p>
-    Modeled toddlers' behavioral sequences as directed graphs (11 node types, transition-probability edges) and trained a 3-layer NNConv GNN to classify sleep vs. wake encoding trials. Achieved 65.8% accuracy (p=0.043); GNNExplainer identified key discriminative behavioral transitions.
+    Sleep is known to consolidate episodic memory in adults, but whether and how it supports memory formation during early life &mdash; when the hippocampus is still structurally immature &mdash; remains unclear. In this study, we examined the effects of sleep on spatial context memory in 28 toddlers aged 2&ndash;3 years using a within-subject crossover design. Children were familiarized with two decorated rooms, followed by either a ~90-minute nap or an equivalent wake period, and then tested with a hide-and-seek game requiring them to relocate toys in the correct room context.
+  </p>
+  <p>
+    We combined behavioral analysis, EEG sleep recordings, and machine learning to comprehensively characterize how sleep shapes memory. Linear mixed-effects models tested condition differences in memory performance; spindle and slow-oscillation coupling analyses linked EEG sleep features to contextual memory; and a <strong>graph neural network</strong> was used to decode sleep-dependent behavioral signatures from the encoding phase.
   </p>
 </div>
 
 <div class="project-section">
-  <h3>Key Results</h3>
+  <h3>Key Findings</h3>
   <ul>
-    <li><strong>3-layer NNConv</strong> with shared edge MLPs, ReLU6, combined max &amp; mean pooling over 21 node features, edge probabilities, and 24 graph features</li>
-    <li><strong>73% sensitivity, 67% specificity</strong> validated with 5,000 permutations</li>
-    <li><strong>GNNExplainer</strong> revealed "looking into container" &rarr; "container play" as key discriminative transition</li>
-    <li><strong>Null at familiarization</strong> (50.0%, p=0.739) confirmed specificity to post-sleep behavioral changes</li>
+    <li><strong>Sleep selectively reduced context errors</strong> (confusing correct containers between rooms) compared to wakefulness, without affecting overall accuracy or random errors</li>
+    <li><strong>Contextualized Memory Index (CMI)</strong> was higher after sleep (&beta; = 0.15, p = 0.015), while decontextualized memory decreased &mdash; indicating that sleep promotes abstracted context representations</li>
+    <li><strong>Spindle density</strong> during NonREM sleep predicted fewer context errors and higher CMI (&beta; = 0.11, p = 0.012)</li>
+    <li><strong>SO&ndash;spindle phase-amplitude coupling</strong> at 12&ndash;13 Hz predicted better contextualized memory (&rho; = 0.534, p = 0.027), the first demonstration of this link in children this young</li>
+    <li><strong>Sleep benefits were strongest for younger toddlers</strong> (25&ndash;30 months), suggesting a developmental window where wake-based context maintenance is particularly fragile</li>
   </ul>
 </div>
 
 <div class="project-section">
-  <h3>Method</h3>
+  <h3>Graph Neural Network Analysis</h3>
   <p>
-    Each behavioral sequence was encoded as a directed graph where nodes represent one of 11 behavioral categories and edge weights correspond to transition probabilities between consecutive actions. Node features (21-dimensional) captured frequency, duration, and sequential properties of each behavior type. Graph-level features (24-dimensional) described global sequence statistics.
+    To understand whether sleep reshaped how children interacted with the task, we scored each child&rsquo;s behaviors during the encoding (hiding) phase across 10 behavioral categories &mdash; including interactions with toys, containers, and the experimenter. Transition probabilities between these behaviors were computed to build <strong>directed graphs</strong> for each trial.
   </p>
   <p>
-    The NNConv architecture processes these heterogeneous graphs through three message-passing layers with edge-conditioned neural networks, followed by combined max and mean graph-level pooling. Permutation testing (5,000 iterations) provided non-parametric significance, while GNNExplainer attributed classification decisions to specific subgraph motifs.
+    A <strong>3-layer NNConv GNN</strong> (PyTorch Geometric) was trained on these graphs to classify whether a trial occurred after sleep or wakefulness. The model used 21-dimensional node features (frequency, duration, sequential statistics), transition-probability edge weights, and 24 graph-level features. It achieved <strong>65.8% accuracy</strong> (p = 0.043 over 5,000 permutations), with <strong>73% sensitivity and 67% specificity</strong>.
+  </p>
+  <p>
+    Crucially, the GNN could not differentiate conditions at familiarization (50.0%, p = 0.739), confirming specificity to post-sleep changes. <strong>GNNExplainer</strong> revealed that the transition from &ldquo;looking into container&rdquo; to &ldquo;container play&rdquo; was the key discriminative feature: after wakefulness, children needed to physically interact with containers to recall the correct locations, whereas after sleep they appeared to rely on an internalized spatial representation &mdash; consistent with sleep-dependent memory abstraction.
+  </p>
+</div>
+
+<div class="project-section">
+  <h3>Significance</h3>
+  <p>
+    This study provides some of the earliest evidence that sleep-dependent memory consolidation &mdash; mediated by canonical sleep oscillations &mdash; already operates in children as young as 2 years, despite hippocampal immaturity. The GNN analysis demonstrates how graph-based deep learning can uncover structured behavioral patterns that traditional statistical approaches would miss, providing interpretable insights into the cognitive effects of sleep.
   </p>
 </div>
 

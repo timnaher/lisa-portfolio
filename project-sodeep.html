@@ -166,7 +166,7 @@
 <div class="project-header">
   <div class="project-label">Deep Learning &middot; Real-Time Inference &middot; SfN 2025</div>
   <h1 class="project-title">SODEEP: A Lightweight Causal CNN for Real-Time Slow Oscillation Detection</h1>
-  <div class="project-authors">T. N&auml;her, L. Bastian, J. Born &amp; P. Fries</div>
+  <div class="project-authors">L. Bastian, T. N&auml;her, J. Born &amp; P. Fries</div>
   <div class="project-tech" style="margin-bottom: 12px;">
     <span class="project-tech-tag">PyTorch</span>
     <span class="project-tech-tag">Causal CNN</span>
@@ -196,7 +196,7 @@
 </div>
 
 <div class="project-section">
-  <h3>Key Results</h3>
+  <h3>Key Findings</h3>
   <table class="results-table">
     <thead>
       <tr><th>Model</th><th>Precision</th><th>Recall</th><th>F1</th><th>Latency (ms)</th></tr>
@@ -215,7 +215,7 @@
 </div>
 
 <div class="project-section">
-  <h3>Method</h3>
+  <h3>Architecture and Training</h3>
   <p>
     The model takes causally band-pass filtered single-channel EEG (IIR, 1&ndash;25&thinsp;Hz) as input and outputs per-timepoint class probabilities for baseline, UP-to-DOWN, and DOWN-to-UP states. The architecture uses stacked causal dilated convolutions for parameter-efficient large receptive fields, followed by LSTM layers for temporal context.
   </p>
@@ -228,12 +228,12 @@
 </div>
 
 <div class="project-section">
-  <h3>Ongoing Work</h3>
+  <h3>Significance and Ongoing Work</h3>
   <p>
-    We are currently scaling the SODEEP approach toward <strong>multi-species foundation-type models</strong> for neural oscillation detection, training on large-scale datasets across species and recording modalities. The goal is a generalizable real-time model that transfers across invasive and non-invasive recordings, different oscillatory phenomena (spindles, ripples), and different species.
+    SODEEP replaces handcrafted algorithmic approaches for real-time sleep oscillation detection with a learned, end-to-end causal model that achieves dramatically higher accuracy at a fraction of the latency. This enables precise closed-loop stimulation experiments that were previously limited by detection delays.
   </p>
   <p>
-    In parallel, we are collaborating with the Ziemann lab at the University of T&uuml;bingen to implement SODEEP in a <strong>real-time TMS paradigm</strong>.
+    We are currently scaling the approach toward <strong>multi-species foundation-type models</strong> for neural oscillation detection, training on large-scale datasets across species and recording modalities. The goal is a generalizable real-time model that transfers across invasive and non-invasive recordings, different oscillatory phenomena (spindles, ripples), and different species. In parallel, we are collaborating with the Ziemann lab at the University of T&uuml;bingen to implement SODEEP in a <strong>real-time TMS paradigm</strong>.
   </p>
 </div>
 

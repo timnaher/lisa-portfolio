@@ -167,27 +167,37 @@
 <div class="project-section">
   <h3>Overview</h3>
   <p>
-    Introduced Riemannian classification for functional near-infrared spectroscopy (fNIRS) using block diagonal SPD covariance kernels that jointly capture oxygenated (HBO) and deoxygenated (HBR) hemoglobin co-activation patterns. Achieved 89% two-class and 70% eight-class accuracy, substantially outperforming traditional feature-extraction approaches.
+    Functional near-infrared spectroscopy (fNIRS) is a portable, low-cost neuroimaging modality that measures cortical hemodynamic activity through changes in oxygenated (HBO) and deoxygenated (HBR) hemoglobin. It is increasingly used for brain-computer interfaces, clinical monitoring, and cognitive neuroscience &mdash; but classification of mental states from fNIRS has traditionally relied on hand-crafted features (mean amplitude, slope, peak) that discard the rich spatial covariance structure of multi-channel recordings.
+  </p>
+  <p>
+    In this study, we introduced <strong>Riemannian geometry-based classification</strong> to fNIRS for the first time, treating each trial&rsquo;s multi-channel hemodynamic response as a symmetric positive definite (SPD) covariance matrix on a curved manifold. Using block diagonal kernels that jointly capture HBO and HBR co-activation patterns, we systematically benchmarked Riemannian classifiers against traditional approaches across up to 8 mental tasks.
   </p>
 </div>
 
 <div class="project-section">
-  <h3>Key Results</h3>
+  <h3>Key Findings</h3>
   <ul>
-    <li><strong>Block diagonal SPD matrices</strong> combining HBO and HBR covariance structures into a joint kernel on the positive definite manifold</li>
-    <li><strong>Multiple Riemannian classifiers</strong> benchmarked (MDM, tangent space LDA/LR/SVM) against traditional methods across 8 mental tasks</li>
-    <li><strong>Wasserstein distance analysis</strong> validated that co-activation patterns are more similar within than between tasks</li>
-    <li><strong>89% two-class accuracy</strong> and <strong>70% eight-class accuracy</strong>, demonstrating the power of geometric approaches for fNIRS</li>
+    <li><strong>89% two-class accuracy</strong> and <strong>70% eight-class accuracy</strong>, substantially outperforming traditional feature-extraction pipelines</li>
+    <li><strong>Block diagonal SPD matrices</strong> combining HBO and HBR covariance structures into a joint kernel preserved within- and cross-chromophore spatial correlations</li>
+    <li><strong>Multiple Riemannian classifiers</strong> benchmarked (MDM, tangent space LDA/LR/SVM) against traditional methods, with Riemannian approaches consistently superior</li>
+    <li><strong>Wasserstein distance analysis</strong> validated that co-activation patterns are more similar within than between mental tasks, providing geometric justification for the approach</li>
   </ul>
 </div>
 
 <div class="project-section">
-  <h3>Method</h3>
+  <h3>Riemannian Classification Framework</h3>
   <p>
-    Standard fNIRS classification pipelines extract hand-crafted features (mean, slope, peak) from hemodynamic time series and feed them to conventional classifiers. This work instead treats each trial's multi-channel HBO and HBR signals as a joint covariance structure, constructing block diagonal SPD matrices that preserve both within-chromophore and cross-chromophore spatial correlations.
+    Each trial&rsquo;s multi-channel HBO and HBR signals are represented as a block diagonal SPD covariance matrix, preserving both within-chromophore and cross-chromophore spatial correlations. These matrices reside on the Riemannian manifold of positive definite matrices, where geodesic distances capture meaningful signal differences that Euclidean metrics would distort.
   </p>
   <p>
-    These SPD matrices are classified on the Riemannian manifold using geodesic-based methods (Minimum Distance to Mean) or after tangent space projection with standard classifiers (LDA, logistic regression, SVM). The geometric approach captures richer spatial information than univariate features and naturally handles the positive-definiteness constraint of covariance data.
+    Classification proceeds either directly on the manifold via <strong>Minimum Distance to Mean (MDM)</strong> &mdash; assigning each trial to the class whose Riemannian centroid is closest &mdash; or after <strong>tangent space projection</strong> with standard classifiers (LDA, logistic regression, SVM). The geometric approach naturally handles the positive-definiteness constraint and captures richer spatial information than univariate features, while being computationally efficient enough for real-time BCI applications.
+  </p>
+</div>
+
+<div class="project-section">
+  <h3>Significance</h3>
+  <p>
+    This work established Riemannian geometry as a powerful framework for fNIRS classification, demonstrating that covariance-based representations outperform traditional feature engineering. The approach is modality-agnostic and has since been extended to clinical awareness detection in disorders of consciousness. By bringing techniques from the EEG-BCI community to fNIRS, this study opened a new methodological direction for portable neuroimaging applications.
   </p>
 </div>
 

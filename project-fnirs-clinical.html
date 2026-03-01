@@ -167,27 +167,38 @@
 <div class="project-section">
   <h3>Overview</h3>
   <p>
-    Translated the Riemannian fNIRS framework into a clinical diagnostic tool for patients with disorders of consciousness (DoC). An individualized pipeline with session-specific hyperparameter tuning and permutation-based decisions achieved 100% sensitivity and 89% specificity for awareness detection.
+    Patients with disorders of consciousness (DoC) &mdash; including vegetative state and minimally conscious state &mdash; may retain covert awareness that standard bedside assessments fail to detect. Misdiagnosis rates remain alarmingly high (~40%), with profound consequences for treatment decisions and end-of-life care. Brain-computer interfaces (BCIs) can probe for command-following ability by asking patients to perform mental tasks, but most BCI approaches rely on EEG, which is technically demanding in ICU environments.
+  </p>
+  <p>
+    In this study, we developed a portable, fNIRS-based diagnostic pipeline for awareness detection that can be deployed at the bedside with minimal setup. The system combines <strong>individualized Riemannian classification</strong> of hemodynamic covariance patterns with a <strong>permutation-based statistical decision framework</strong> to provide clinically reliable awareness assessments.
   </p>
 </div>
 
 <div class="project-section">
-  <h3>Key Results</h3>
+  <h3>Key Findings</h3>
   <ul>
-    <li><strong>Individualized pipeline</strong> with per-participant covariance estimation, Riemannian classifier selection, and stratified cross-validation</li>
-    <li><strong>Permutation-based clinical decision</strong> framework minimizing misdiagnosis rates in DoC</li>
-    <li><strong>100% sensitivity, 89% specificity</strong> for detecting awareness from fNIRS signals</li>
-    <li><strong>Minimal setup burden</strong> &mdash; 2-second encoding, self-chosen motor/speech imagery, portable fNIRS cap for ICU bedside use</li>
+    <li><strong>100% sensitivity and 89% specificity</strong> for detecting awareness from fNIRS signals in DoC patients, using individualized Riemannian classifiers</li>
+    <li><strong>Permutation-based clinical decision framework</strong> converts classifier accuracy into statistically grounded diagnosis, minimizing misdiagnosis risk</li>
+    <li><strong>2-second encoding windows</strong> sufficient for reliable classification &mdash; dramatically reducing scan time compared to fMRI-based approaches</li>
+    <li><strong>Self-chosen motor or speech imagery</strong> tasks accommodated individual patient capabilities, improving engagement and signal quality</li>
+    <li><strong>Portable fNIRS cap</strong> enables bedside deployment in ICU settings where fMRI or high-density EEG are impractical</li>
   </ul>
 </div>
 
 <div class="project-section">
-  <h3>Method</h3>
+  <h3>Riemannian Classification Pipeline</h3>
   <p>
-    Patients with disorders of consciousness are asked to perform mental imagery tasks (motor or speech imagery) while wearing a portable fNIRS cap at bedside. The pipeline extracts SPD covariance features from the hemodynamic response and applies individualized Riemannian classification to detect command-following ability.
+    The pipeline extracts SPD covariance matrices from the hemodynamic response (HBO/HBR) during command-following and rest periods. These matrices are classified on the Riemannian manifold using individually optimized classifiers &mdash; each participant&rsquo;s covariance estimation parameters, classifier type, and decision boundaries are tuned independently via stratified cross-validation.
   </p>
   <p>
-    Critical to clinical deployment: each participant's classifier is tuned independently with session-specific hyperparameters and validated via stratified cross-validation. A permutation testing framework converts classifier accuracy into a statistically grounded clinical decision, balancing sensitivity (detecting awareness) against specificity (avoiding false positives) to minimize the risk of misdiagnosis.
+    The clinical decision is made through a <strong>permutation testing framework</strong>: the observed classification accuracy is compared against a null distribution generated from label-shuffled data. This converts raw accuracy into a statistically grounded p-value, balancing sensitivity (detecting genuine awareness) against specificity (avoiding false positives). The framework is designed to be conservative, prioritizing the detection of covert awareness to prevent misdiagnosis.
+  </p>
+</div>
+
+<div class="project-section">
+  <h3>Significance</h3>
+  <p>
+    This work demonstrates that Riemannian geometry-based BCI can achieve clinical-grade diagnostic accuracy for awareness detection using portable, bedside-compatible fNIRS hardware. The individualized pipeline and permutation-based decision framework address the unique challenges of clinical BCI &mdash; where each patient presents differently and diagnostic errors carry severe consequences. The approach provides a practical path toward routine fNIRS-based awareness screening in intensive care.
   </p>
 </div>
 

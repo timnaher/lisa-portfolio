@@ -140,46 +140,62 @@
 <main>
 
 <div class="project-header">
-  <div class="project-label">Riemannian Geometry &middot; Neurobiology of Learning and Memory 2024</div>
+  <div class="project-label">Sleep &middot; Infant Memory &middot; Riemannian Geometry &middot; Neurobiology of Learning and Memory 2024</div>
   <h1 class="project-title">Riemannian Manifold Analysis of Infant Memory Formation</h1>
-  <div class="project-authors">L. Bastian, E.-M. Kurz, T. Naher, K. Zinke, M. Friedrich &amp; J. Born</div>
+  <div class="project-authors">L. Bastian, E.-M. Kurz, T. N&auml;her, K. Zinke, M. Friedrich &amp; J. Born</div>
   <div class="project-tech">
-    <span class="project-tech-tag">SPD Manifolds</span>
     <span class="project-tech-tag">pyRiemann</span>
-    <span class="project-tech-tag">Tangent Space</span>
+    <span class="project-tech-tag">SPD Manifolds</span>
+    <span class="project-tech-tag">K-Means (Riemannian)</span>
+    <span class="project-tech-tag">Laplacian Eigenmaps</span>
+    <span class="project-tech-tag">Linear Mixed-Effects Models</span>
     <span class="project-tech-tag">EEG</span>
   </div>
 </div>
 
 <figure class="project-figure">
-  <img src="assets/riemannian-figure.png" alt="Riemannian tangent space analysis showing convergence of MMR voice representations after sleep">
-  <figcaption>Laplacian Eigenmap projections of SPD covariance matrices reveal convergence of mother and novel voice mismatch responses after sleep in 3-month-old infants.</figcaption>
+  <img src="assets/riemannian-figure.png" alt="Riemannian manifold clustering showing convergence of mother and novel voice mismatch responses after sleep">
+  <figcaption>Laplacian Eigenmap projections of SPD covariance matrices reveal that after familiarization and sleep, the novel voice MMR converges with the mother&rsquo;s voice representation &mdash; indicating new long-term memory formation.</figcaption>
 </figure>
 
 <div class="project-section">
   <h3>Overview</h3>
   <p>
-    Quantified convergence of neural voice representations after sleep in 3-month-olds. EEG mismatch responses were modeled as symmetric positive definite (SPD) covariance matrices on a Riemannian manifold, then projected to tangent space via Laplacian Eigenmaps. Sleep spindle activity predicted increased MMR similarity in late time windows.
+    The ability to form long-term memories begins remarkably early, but little is known about the mechanisms that guide memory formation at three months of age. In this study, we used a voice mismatch paradigm to track how infants form a new long-term memory representation for an initially unknown voice. Twenty infants (mean age ~14 weeks) listened to three voices saying &ldquo;baby&rdquo; in an oddball design: a frequent standard voice (85%), plus their own mother&rsquo;s voice and a novel voice as rare deviants (7.5% each).
+  </p>
+  <p>
+    The paradigm was presented twice &mdash; at baseline and again after a 10-minute familiarization with the novel voice followed by a ~60-minute nap. EEG mismatch responses (MMRs), linear mixed-effects models, sleep spindle analyses, and <strong>Riemannian manifold-based similarity analysis</strong> were combined to characterize how sleep transforms a newly encountered voice into a stable long-term memory trace.
   </p>
 </div>
 
 <div class="project-section">
-  <h3>Key Results</h3>
+  <h3>Key Findings</h3>
   <ul>
-    <li><strong>SPD covariance matrices</strong> from multi-channel frontal EEG, regularized and mapped onto the positive definite manifold</li>
-    <li><strong>Tangent space projection</strong> via Laplacian Eigenmaps revealed cluster convergence of mother/novel voice representations after sleep</li>
-    <li><strong>Local similarity</strong> via Euclidean distances in tangent space across early (220&ndash;382 ms) and late (686&ndash;918 ms) windows</li>
-    <li><strong>MMR Similarity Index</strong> linked to frontal sleep spindle activity, connecting Riemannian distance metrics to memory consolidation</li>
+    <li><strong>Late positive MMR (~850 ms) emerged for the novel voice</strong> only after familiarization and sleep, mirroring the established long-term memory signature already present for the mother&rsquo;s voice at baseline</li>
+    <li><strong>Early negative MMR (~250 ms)</strong> appeared for both voices at the test session, reflecting short-term deviance processing</li>
+    <li><strong>Frontal spindle count</strong> predicted the emergence of the late MMR to the novel voice (t(15) = 2.86, p = 0.04), linking sleep oscillations to new memory formation</li>
+    <li><strong>Frontal spindle amplitude</strong> predicted increased similarity between novel and mother voice MMRs in the late latency window (t(14) = 2.94, p = 0.01)</li>
+    <li><strong>Nap duration</strong> was positively correlated with the late MMR to the novel voice (r = 0.52, p = 0.02), supporting a role for total sleep time</li>
   </ul>
 </div>
 
 <div class="project-section">
-  <h3>Method</h3>
+  <h3>Riemannian Manifold Similarity Analysis</h3>
   <p>
-    Multi-channel EEG mismatch responses to the infant's own mother's voice and a novel voice were computed as SPD covariance matrices, capturing the spatial correlation structure of neural activity. These matrices live on the Riemannian manifold of positive definite matrices, where geodesic distances capture meaningful signal differences that Euclidean metrics would miss.
+    To quantify how sleep restructured the neural representations of voices, we went beyond classical ERP amplitude comparisons. Channel-covariance matrices of the frontal MMR waveforms were computed using <strong>pyRiemann</strong>, yielding symmetric positive definite (SPD) matrices that capture the full spatial correlation structure of multi-channel EEG activity. Since these matrices reside on a curved Riemannian manifold, standard Euclidean distances are geometrically inappropriate.
   </p>
   <p>
-    Laplacian Eigenmaps projected the high-dimensional SPD matrices into a low-dimensional tangent space, preserving local geometric structure. Distances between voice representations in this space served as a similarity index. The key finding: sleep spindle activity predicted post-sleep convergence of voice representations, providing a geometric account of memory consolidation in early infancy.
+    Bootstrapped covariance matrices (n = 100 per participant) were clustered via <strong>K-means with Riemannian distance</strong> as the metric, and projected into a 2D embedding using <strong>Laplacian Eigenmaps</strong> for visualization. At baseline, the novel voice occupied a distinct cluster separate from the mother&rsquo;s voice. After familiarization and sleep, the novel voice representation converged into the same cluster as the mother&rsquo;s voice &mdash; a geometric signature of newly formed long-term memory.
+  </p>
+  <p>
+    Local similarity was assessed in early (220&ndash;382 ms) and late (686&ndash;918 ms) latency windows, where MMR distances decreased significantly from baseline to test (late: t(19) = 2.16, p = 0.04; early: t(19) = 2.49, p = 0.02). An <strong>MMR Similarity Index (MMRSI)</strong> was computed from the change in pairwise Riemannian distances, and frontal spindle amplitude emerged as a significant predictor of this index (b = 0.15, p &lt; 0.01) &mdash; directly linking sleep oscillatory mechanisms to the geometric convergence of voice representations on the manifold.
+  </p>
+</div>
+
+<div class="project-section">
+  <h3>Significance</h3>
+  <p>
+    This study demonstrates that three-month-old infants can form new long-term voice memories through sleep-dependent consolidation mediated by spindle activity &mdash; a mechanism previously established only in adults. The Riemannian manifold analysis provides a geometrically principled framework for quantifying representational similarity in neural data, capturing convergence patterns that traditional amplitude-based comparisons would miss. This approach illustrates how modern ML techniques from the BCI field (covariance-based Riemannian analysis) can be repurposed for fundamental questions in developmental cognitive neuroscience.
   </p>
 </div>
 
