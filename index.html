@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lisa Bastian — Data Scientist & Neuroscience PhD</title>
+<meta name="description" content="Lisa Bastian — Time-Series Modeling, Data Science, and Neuroscience PhD Researcher at the University of Tübingen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF8;
+    --bg-alt: #F3F2EE;
+    --text: #1A1A1A;
+    --text-secondary: #5C5C5C;
+    --text-tertiary: #8A8A8A;
+    --accent: #2D5A3D;
+    --accent-light: #E8F0EB;
+    --accent-hover: #1E3D2A;
+    --border: #E5E4E0;
+    --card-bg: #FFFFFF;
+    --tag-bg: #EDEDED;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+    --radius: 8px;
+    --max-w: 780px;
+    --font-display: 'Newsreader', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+  }
+
+  [data-theme="dark"] {
+    --bg: #141413;
+    --bg-alt: #1C1C1A;
+    --text: #EDEDEB;
+    --text-secondary: #A0A09C;
+    --text-tertiary: #6B6B67;
+    --accent: #6BBF82;
+    --accent-light: #1A2E21;
+    --accent-hover: #8DD4A0;
+    --border: #2A2A27;
+    --card-bg: #1E1E1C;
+    --tag-bg: #2A2A27;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+    font-weight: 400;
+    transition: background 0.3s, color 0.3s;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* -- NAV -- */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.3s, border 0.3s;
+  }
+  nav .nav-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  nav .nav-name {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  nav .nav-links { display: flex; align-items: center; gap: 6px; }
+  nav .nav-links a {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+  }
+  nav .nav-links a:hover {
+    color: var(--text);
+    background: var(--bg-alt);
+  }
+  .theme-toggle {
+    background: none; border: none; cursor: pointer;
+    color: var(--text-secondary);
+    padding: 6px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    transition: color 0.2s, background 0.2s;
+  }
+  .theme-toggle:hover { color: var(--text); background: var(--bg-alt); }
+
+  .mobile-menu-btn {
+    display: none; background: none; border: none; cursor: pointer;
+    color: var(--text-secondary); padding: 6px;
+  }
+
+  /* -- MAIN -- */
+  main {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 88px 24px 80px;
+  }
+
+  section { margin-bottom: 72px; }
+  section:last-child { margin-bottom: 0; }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+    color: var(--text);
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* -- HERO / ABOUT -- */
+  .hero {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 36px;
+    align-items: start;
+    margin-bottom: 72px;
+  }
+  .hero-avatar {
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--bg-alt);
+    border: 3px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 48px; color: var(--text-tertiary);
+    font-family: var(--font-display);
+  }
+  .hero-content h1 {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .hero-role {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+  }
+  .hero-role a { color: var(--accent); text-decoration: none; }
+  .hero-role a:hover { text-decoration: underline; }
+  .hero-location {
+    font-size: 13px;
+    color: var(--text-tertiary);
+    margin-bottom: 16px;
+    font-family: var(--font-body);
+  }
+  .hero-bio {
+    color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.75;
+  }
+  .hero-bio a { color: var(--accent); text-decoration: none; }
+  .hero-bio a:hover { text-decoration: underline; }
+  .hero-links {
+    display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap;
+  }
+  .hero-links a {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 13px; font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+  .hero-links a:hover {
+    background: var(--accent-light);
+    border-color: var(--accent);
+  }
+  .hero-links a svg { width: 14px; height: 14px; }
+
+  /* -- NEWS -- */
+  .news-list { list-style: none; }
+  .news-item {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    opacity: 0;
+    animation: fadeUp 0.4s ease forwards;
+  }
+  .news-item:last-child { border-bottom: none; }
+  .news-date {
+    color: var(--text-tertiary);
+    font-size: 13px;
+    font-weight: 500;
+    padding-top: 1px;
+  }
+  .news-text { color: var(--text-secondary); }
+  .news-text strong { color: var(--text); font-weight: 500; }
+
+  /* -- EXPERIENCE -- */
+  .exp-item {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    opacity: 0;
+    animation: fadeUp 0.4s ease forwards;
+  }
+  .exp-item:last-child { border-bottom: none; }
+  .exp-logo {
+    width: 48px; height: 48px;
+    border-radius: 10px;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 600; color: var(--text-tertiary);
+    font-family: var(--font-display);
+    flex-shrink: 0;
+  }
+  .exp-title { font-weight: 500; font-size: 15px; color: var(--text); }
+  .exp-org { font-size: 14px; color: var(--text-secondary); }
+  .exp-dates { font-size: 13px; color: var(--text-tertiary); margin-top: 2px; }
+  .exp-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 6px;
+    line-height: 1.6;
+  }
+  .exp-desc ul {
+    list-style: none;
+    padding: 0;
+  }
+  .exp-desc ul li {
+    padding-left: 14px;
+    position: relative;
+    margin-bottom: 3px;
+  }
+  .exp-desc ul li::before {
+    content: "\2013";
+    position: absolute;
+    left: 0;
+    color: var(--text-tertiary);
+  }
+
+  /* -- EDUCATION -- */
+  .edu-item {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    opacity: 0;
+    animation: fadeUp 0.4s ease forwards;
+  }
+  .edu-item:last-child { border-bottom: none; }
+  .edu-degree { font-weight: 500; font-size: 15px; color: var(--text); }
+  .edu-school { font-size: 14px; color: var(--text-secondary); }
+  .edu-year { font-size: 13px; color: var(--text-tertiary); }
+  .edu-note { font-size: 13px; color: var(--text-tertiary); margin-top: 2px; font-style: italic; }
+
+  /* -- SKILLS -- */
+  .skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .skill-tag {
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 16px;
+    border-radius: 20px;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    transition: all 0.2s;
+  }
+  .skill-tag:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-light);
+  }
+  .skills-category {
+    margin-bottom: 20px;
+  }
+  .skills-category:last-child { margin-bottom: 0; }
+  .skills-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+  }
+
+  /* -- PUBLICATIONS -- */
+  .pub-filters {
+    display: flex; gap: 6px; flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .pub-filter-btn {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .pub-filter-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .pub-filter-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .pub-item {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+    opacity: 0;
+    animation: fadeUp 0.4s ease forwards;
+  }
+  .pub-item:last-child { border-bottom: none; }
+  .pub-title {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--text);
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+  .pub-authors {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+    line-height: 1.5;
+  }
+  .pub-authors .me { font-weight: 600; color: var(--text); }
+  .pub-venue {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .pub-abstract {
+    font-size: 13px;
+    color: var(--text-tertiary);
+    line-height: 1.6;
+    margin-bottom: 8px;
+    display: none;
+  }
+  .pub-abstract.open {
+    display: block;
+  }
+  .pub-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 8px; }
+  .pub-tag {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: var(--tag-bg);
+    color: var(--text-tertiary);
+    font-weight: 500;
+  }
+  .pub-links { display: flex; gap: 8px; }
+  .pub-link {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    padding: 3px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+    cursor: pointer;
+    background: none;
+    font-family: var(--font-body);
+  }
+  .pub-link:hover {
+    background: var(--accent-light);
+    border-color: var(--accent);
+  }
+
+  /* -- FOOTER -- */
+  footer {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 24px 24px 40px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-tertiary);
+    border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--text-tertiary); text-decoration: underline; }
+
+  /* -- ANIMATIONS -- */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero { opacity: 0; animation: fadeUp 0.5s 0.1s ease forwards; }
+
+  /* -- RESPONSIVE -- */
+  @media (max-width: 640px) {
+    .hero {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+    .hero-avatar { margin: 0 auto; width: 110px; height: 110px; font-size: 36px; }
+    .hero-links { justify-content: center; }
+    .exp-item { grid-template-columns: 40px 1fr; }
+    .exp-logo { width: 40px; height: 40px; font-size: 15px; }
+    nav .nav-links.desktop { display: none; }
+    .mobile-menu-btn { display: block; }
+    .nav-links.mobile-open {
+      display: flex !important;
+      flex-direction: column;
+      position: absolute;
+      top: 56px; left: 0; right: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      gap: 4px;
+    }
+    .nav-links.mobile-open a {
+      padding: 10px;
+      font-size: 14px;
+    }
+  }
+
+  @media (min-width: 641px) {
+    .mobile-menu-btn { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#about" class="nav-name">Lisa Bastian</a>
+    <div class="nav-links desktop">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#publications">Publications</a>
+      <a href="#skills">Skills</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+        <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </div>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+    </button>
+  </div>
+  <div class="nav-links mobile-nav" style="display:none;">
+    <a href="#about" onclick="closeMobile()">About</a>
+    <a href="#experience" onclick="closeMobile()">Experience</a>
+    <a href="#publications" onclick="closeMobile()">Publications</a>
+    <a href="#skills" onclick="closeMobile()">Skills</a>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" style="margin-top:4px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    </button>
+  </div>
+</nav>
+
+<main>
+
+<!-- HERO / ABOUT -->
+<section class="hero" id="about">
+  <div class="hero-avatar">LB</div>
+  <div class="hero-content">
+    <h1>Lisa Bastian</h1>
+    <div class="hero-role">
+      Data Scientist &middot; Neuroscience PhD &middot; <a href="https://uni-tuebingen.de" target="_blank" rel="noopener">University of T&uuml;bingen</a>
+    </div>
+    <div class="hero-location">T&uuml;bingen, Germany &middot; bastian.marie.lisa@gmail.com</div>
+    <div class="hero-bio">
+      <p>
+        PhD in Neuroscience, specialized in statistical modeling and analysis of large-scale, noisy, non-stationary time-series data. Experienced in developing, validating, and deploying predictive models under real-time and data-constrained conditions.
+      </p>
+      <p style="margin-top:12px;">
+        Strong background in Python-based research pipelines, machine learning, and statistical modeling, with additional exposure to low-latency and causal deep learning methods.
+      </p>
+    </div>
+    <div class="hero-links">
+      <a href="https://www.linkedin.com/in/lisa-bastian-a432a1260" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="mailto:bastian.marie.lisa@gmail.com" aria-label="Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Email
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section id="news">
+  <h2 class="section-title">News</h2>
+  <ul class="news-list">
+    <li class="news-item">
+      <span class="news-date">2025</span>
+      <span class="news-text">Published <strong>SODEEP</strong> &mdash; a lightweight causal CNN for real-time slow oscillation detection, presented at <strong>Society for Neuroscience</strong>.</span>
+    </li>
+    <li class="news-item">
+      <span class="news-date">Jun 2025</span>
+      <span class="news-text">Joined <strong>Columbia University</strong> (Engineering) as a visiting researcher.</span>
+    </li>
+    <li class="news-item">
+      <span class="news-date">2025</span>
+      <span class="news-text">Four publications in <strong>Brain Stimulation</strong>, <strong>Neurophotonics</strong>, and <strong>Optica Publishing Group</strong>.</span>
+    </li>
+    <li class="news-item">
+      <span class="news-date">Sep 2025</span>
+      <span class="news-text">Completed <strong>PhD in Neuroscience</strong> at the University of T&uuml;bingen.</span>
+    </li>
+  </ul>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <h2 class="section-title">Experience</h2>
+
+  <div class="exp-item">
+    <div class="exp-logo">T&uuml;</div>
+    <div>
+      <div class="exp-title">Doctoral Researcher</div>
+      <div class="exp-org">University of T&uuml;bingen, Germany</div>
+      <div class="exp-dates">Oct 2021 &ndash; Present</div>
+      <div class="exp-desc">
+        <ul>
+          <li>Applied advanced statistical and machine learning methods to large-scale, high-dimensional time-series datasets to extract predictive signals</li>
+          <li>Extensive experience with millisecond resolution time series and corresponding predictive models</li>
+          <li>Designed and validated quantitative models for pattern detection and forecasting under noisy, non-stationary conditions</li>
+          <li>Built end-to-end data pipelines for ingestion, cleaning, feature engineering, and analysis of multimodal datasets using Python and R</li>
+          <li>Built real-time high-frequency time series models for short-horizon prediction</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="exp-item">
+    <div class="exp-logo">CU</div>
+    <div>
+      <div class="exp-title">Visiting Researcher</div>
+      <div class="exp-org">Columbia University (Engineering), New York</div>
+      <div class="exp-dates">Jun 2025 &ndash; Nov 2025</div>
+      <div class="exp-desc">
+        <ul>
+          <li>Engaged in collaborative research projects, contributing expertise in neuroscience and open-source toolbox development in Python</li>
+          <li>Applied advanced analytical techniques to support ongoing studies and experimental designs</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="exp-item">
+    <div class="exp-logo">DI</div>
+    <div>
+      <div class="exp-title">Research Intern</div>
+      <div class="exp-org">Donders Institute for Brain, Cognition and Behaviour, Nijmegen</div>
+      <div class="exp-dates">Nov 2020 &ndash; Jul 2021</div>
+      <div class="exp-desc">
+        <ul>
+          <li>Conducted Master's thesis on multimodal neuroscience datasets, leveraging statistical analysis to derive highly cited findings</li>
+          <li>Gained practical experience in experimental design and quantitative data analysis</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="exp-item">
+    <div class="exp-logo">Sk</div>
+    <div>
+      <div class="exp-title">Analyst, Financial Markets</div>
+      <div class="exp-org">Sparkasse, Germany</div>
+      <div class="exp-dates">Sep 2013 &ndash; Jun 2016</div>
+      <div class="exp-desc">
+        <ul>
+          <li>Completed a structured professional training program in banking and financial markets within a regulated European financial institution</li>
+          <li>Analyzed client portfolios, cash flows, and risk profiles; supported allocation decisions across equities, fixed income, and structured products</li>
+          <li>Developed early exposure to market microstructure, order execution, and regulatory constraints in liquid equity markets</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <h2 class="section-title">Education</h2>
+
+  <div class="edu-item">
+    <div class="edu-degree">PhD in Neuroscience</div>
+    <div class="edu-school">University of T&uuml;bingen</div>
+    <div class="edu-year">Oct 2022 &ndash; Sep 2025</div>
+  </div>
+
+  <div class="edu-item">
+    <div class="edu-degree">MSc in Clinical and Cognitive Neuroscience</div>
+    <div class="edu-school">Maastricht University</div>
+    <div class="edu-year">Sep 2019 &ndash; Aug 2021</div>
+  </div>
+
+  <div class="edu-item">
+    <div class="edu-degree">BSc in Psychology</div>
+    <div class="edu-school">Maastricht University</div>
+    <div class="edu-year">Sep 2016 &ndash; Aug 2019</div>
+  </div>
+
+  <div class="edu-item">
+    <div class="edu-degree">Computational Neuroscience Summer School</div>
+    <div class="edu-school">Neuromatch Academy</div>
+    <div class="edu-year">Jul 2023</div>
+    <div class="edu-note">Deep Learning, Bayesian Modeling, Computational Neuroscience, Dynamical Systems, Neural Data Analysis</div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <h2 class="section-title">Publications</h2>
+
+  <div class="pub-filters">
+    <button class="pub-filter-btn active" data-filter="all">All</button>
+    <button class="pub-filter-btn" data-filter="deep-learning">Deep Learning</button>
+    <button class="pub-filter-btn" data-filter="bci">BCI / fNIRS</button>
+    <button class="pub-filter-btn" data-filter="sleep">Sleep & Memory</button>
+  </div>
+
+  <div class="pub-list">
+
+    <div class="pub-item" data-tags="deep-learning sleep">
+      <div class="pub-title">SODEEP: A lightweight causal CNN for real-time slow oscillation detection</div>
+      <div class="pub-authors"><span class="me">L. Bastian</span> et al.</div>
+      <div class="pub-venue">Society for Neuroscience, 2025</div>
+      <div class="pub-abstract" id="abs-1">Developed a lightweight causal convolutional neural network for real-time detection and phase prediction in EEG time-series data. The model operates under strict causality and millisecond-level latency constraints, enabling online inference on streaming data. Emphasized robustness to noise, non-stationarity, and limited context, with validation focused on timing accuracy and out-of-sample performance.</div>
+      <div class="pub-tags">
+        <span class="pub-tag">Deep Learning</span>
+        <span class="pub-tag">Real-Time</span>
+        <span class="pub-tag">EEG</span>
+      </div>
+      <div class="pub-links">
+        <button class="pub-link" onclick="toggleAbstract('abs-1', this)">abstract</button>
+      </div>
+    </div>
+
+    <div class="pub-item" data-tags="bci">
+      <div class="pub-title">Sensitive and specific fNIRS-based approach for awareness detection in disorders of consciousness: proof of principle in healthy adults</div>
+      <div class="pub-authors"><span class="me">L. Bastian</span> et al.</div>
+      <div class="pub-venue">Optica Publishing Group, 2025</div>
+      <div class="pub-abstract" id="abs-2">Built an end-to-end, individualized command-following diagnostic pipeline for awareness detection from fNIRS, spanning acquisition-aware preprocessing, covariance (SPD) feature construction, Riemannian tangent-space mapping, and classification. Validated a clinically deployable workflow emphasizing high sensitivity/specificity, minimal setup burden, and rapid, session-specific model fitting to deliver actionable bedside decisions.</div>
+      <div class="pub-tags">
+        <span class="pub-tag">fNIRS</span>
+        <span class="pub-tag">BCI</span>
+        <span class="pub-tag">Riemannian Geometry</span>
+      </div>
+      <div class="pub-links">
+        <button class="pub-link" onclick="toggleAbstract('abs-2', this)">abstract</button>
+      </div>
+    </div>
+
+    <div class="pub-item" data-tags="sleep">
+      <div class="pub-title">Closed-loop transcutaneous vagus nerve stimulation of the sleep slow oscillation</div>
+      <div class="pub-authors"><span class="me">L. Bastian</span> et al.</div>
+      <div class="pub-venue">Brain Stimulation, 2025</div>
+      <div class="pub-tags">
+        <span class="pub-tag">Sleep</span>
+        <span class="pub-tag">Closed-Loop</span>
+        <span class="pub-tag">Stimulation</span>
+      </div>
+    </div>
+
+    <div class="pub-item" data-tags="bci">
+      <div class="pub-title">Riemannian Geometry for the classification of brain states with fNIRS</div>
+      <div class="pub-authors"><span class="me">L. Bastian</span> et al.</div>
+      <div class="pub-venue">Neurophotonics, 2025</div>
+      <div class="pub-tags">
+        <span class="pub-tag">fNIRS</span>
+        <span class="pub-tag">Riemannian Geometry</span>
+        <span class="pub-tag">Classification</span>
+      </div>
+    </div>
+
+    <div class="pub-item" data-tags="sleep">
+      <div class="pub-title">Development of slow oscillation&ndash;spindle coupling from infancy to toddlerhood</div>
+      <div class="pub-authors"><span class="me">L. Bastian</span> et al.</div>
+      <div class="pub-venue">Sleep Advances, 2024</div>
+      <div class="pub-tags">
+        <span class="pub-tag">Sleep</span>
+        <span class="pub-tag">Development</span>
+        <span class="pub-tag">EEG</span>
+      </div>
+    </div>
+
+    <div class="pub-item" data-tags="sleep">
+      <div class="pub-title">Long-term memory formation for voices during sleep in three-month-old infants</div>
+      <div class="pub-authors"><span class="me">L. Bastian</span> et al.</div>
+      <div class="pub-venue">Neurobiology of Learning and Memory, 2024</div>
+      <div class="pub-tags">
+        <span class="pub-tag">Sleep</span>
+        <span class="pub-tag">Memory</span>
+        <span class="pub-tag">Infant</span>
+      </div>
+    </div>
+
+    <div class="pub-item" data-tags="bci">
+      <div class="pub-title">It takes two (seconds): decreasing encoding time for two-choice functional near-infrared spectroscopy brain-computer interface communication</div>
+      <div class="pub-authors"><span class="me">L. Bastian</span> et al.</div>
+      <div class="pub-venue">Neurophotonics, 2023</div>
+      <div class="pub-tags">
+        <span class="pub-tag">fNIRS</span>
+        <span class="pub-tag">BCI</span>
+        <span class="pub-tag">Real-Time</span>
+      </div>
+    </div>
+
+    <div class="pub-item" data-tags="sleep">
+      <div class="pub-title">Spindle-slow oscillation coupling correlates with memory performance and connectivity changes in a hippocampal network after sleep</div>
+      <div class="pub-authors"><span class="me">L. Bastian</span> et al.</div>
+      <div class="pub-venue">Human Brain Mapping, 2022</div>
+      <div class="pub-tags">
+        <span class="pub-tag">Sleep</span>
+        <span class="pub-tag">Memory</span>
+        <span class="pub-tag">Connectivity</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <h2 class="section-title">Skills</h2>
+
+  <div class="skills-category">
+    <div class="skills-label">Methods</div>
+    <div class="skills-grid">
+      <span class="skill-tag">Time-Series Analysis & Forecasting</span>
+      <span class="skill-tag">Machine Learning</span>
+      <span class="skill-tag">Statistical Modeling</span>
+      <span class="skill-tag">Deep Learning</span>
+      <span class="skill-tag">Low-Latency Modeling</span>
+      <span class="skill-tag">Real-Time Inference</span>
+      <span class="skill-tag">Quantitative Analysis</span>
+    </div>
+  </div>
+
+  <div class="skills-category">
+    <div class="skills-label">Programming</div>
+    <div class="skills-grid">
+      <span class="skill-tag">Python</span>
+      <span class="skill-tag">R</span>
+      <span class="skill-tag">SQL</span>
+      <span class="skill-tag">C++</span>
+    </div>
+  </div>
+
+  <div class="skills-category">
+    <div class="skills-label">Languages</div>
+    <div class="skills-grid">
+      <span class="skill-tag">German (native)</span>
+      <span class="skill-tag">English (fluent)</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  &copy; 2026 Lisa Bastian
+</footer>
+
+<!-- SCRIPTS -->
+<script>
+  // Theme Toggle
+  function toggleTheme() {
+    const isDark = document.documentElement.hasAttribute('data-theme');
+    if (isDark) {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('theme', 'light');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
+    }
+  }
+  if (localStorage.getItem('theme') === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+
+  // Mobile Menu
+  function toggleMobileMenu() {
+    const nav = document.querySelector('.mobile-nav');
+    const isOpen = nav.style.display === 'flex';
+    nav.style.display = isOpen ? 'none' : 'flex';
+    if (!isOpen) nav.classList.add('mobile-open');
+    else nav.classList.remove('mobile-open');
+  }
+  function closeMobile() {
+    const nav = document.querySelector('.mobile-nav');
+    nav.style.display = 'none';
+    nav.classList.remove('mobile-open');
+  }
+
+  // Publication Filters
+  document.querySelectorAll('.pub-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.pub-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.pub-item').forEach(item => {
+        if (filter === 'all' || item.dataset.tags.includes(filter)) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // Abstract toggle
+  function toggleAbstract(id, btn) {
+    const el = document.getElementById(id);
+    el.classList.toggle('open');
+    btn.textContent = el.classList.contains('open') ? 'hide abstract' : 'abstract';
+  }
+
+  // Scroll-triggered stagger animation
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const items = entry.target.querySelectorAll(
+          '.news-item, .exp-item, .edu-item, .pub-item, .skill-tag'
+        );
+        items.forEach((item, i) => {
+          item.style.animationDelay = `${i * 0.06}s`;
+          item.style.animationPlayState = 'running';
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('section').forEach(section => {
+    section.querySelectorAll(
+      '.news-item, .exp-item, .edu-item, .pub-item'
+    ).forEach(item => {
+      item.style.animationPlayState = 'paused';
+    });
+    observer.observe(section);
+  });
+</script>
+
+</body>
+</html>
