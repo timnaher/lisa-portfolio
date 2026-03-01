@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lisa Bastian — Data Scientist & Neuroscience PhD</title>
 <meta name="description" content="Lisa Bastian — Time-Series Modeling, Data Science, and Neuroscience PhD Researcher at the University of Tübingen.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
 <style>
   /* ── LIGHT THEME (default) ── */
   :root {
@@ -129,8 +129,8 @@
     transition: border-color 0.3s;
   }
   .sidebar-name {
-    font-family: var(--font-display); font-size: 26px; font-weight: 600;
-    letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 8px;
+    font-family: 'Inter', system-ui, sans-serif; font-size: 26px; font-weight: 700;
+    letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 8px;
     color: var(--text);
   }
   .sidebar-role {
@@ -417,7 +417,7 @@
   <aside class="sidebar">
     <div class="sidebar-avatar">LB</div>
     <h1 class="sidebar-name">Lisa Bastian</h1>
-    <div class="sidebar-role">Data Scientist &middot; Neuroscience PhD</div>
+    <div class="sidebar-role">Neuroscience PhD &middot; Data Science<br>Machine Learning &middot; Neuro AI<br>Sleep &amp; Memory</div>
     <div class="sidebar-affil"><a href="https://uni-tuebingen.de" target="_blank" rel="noopener">University of T&uuml;bingen</a></div>
     <div class="sidebar-affil" style="margin-top: 2px;">T&uuml;bingen, Germany</div>
     <div class="sidebar-email">bastian.marie.lisa@gmail.com</div>
@@ -828,12 +828,12 @@
   // Initialize theme
   (function() {
     const saved = localStorage.getItem('theme');
-    if (saved === 'light') {
-      document.documentElement.removeAttribute('data-theme');
-      document.querySelectorAll('.toggle-label').forEach(el => el.textContent = 'Night');
-    } else {
+    if (saved === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
       document.querySelectorAll('.toggle-label').forEach(el => el.textContent = 'Day');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+      document.querySelectorAll('.toggle-label').forEach(el => el.textContent = 'Night');
     }
   })();
 
