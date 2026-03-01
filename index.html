@@ -195,22 +195,23 @@
 
   /* ── MEDIA ── */
   .media-item {
-    display: grid; grid-template-columns: 160px 1fr;
-    gap: 16px; background: var(--card-bg); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 16px; text-decoration: none;
+    display: flex; align-items: flex-start; gap: 14px;
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 16px 20px; text-decoration: none;
     color: inherit; transition: box-shadow 0.2s, border-color 0.2s;
   }
   .media-item:hover { border-color: var(--accent); box-shadow: var(--shadow-md); }
-  .media-thumb {
-    width: 100%; aspect-ratio: 16/9; object-fit: cover;
-    border-radius: 6px; background: var(--bg-alt);
+  .media-icon {
+    flex-shrink: 0; width: 36px; height: 36px; border-radius: 8px;
+    background: var(--accent-light); color: var(--accent);
+    display: flex; align-items: center; justify-content: center; margin-top: 2px;
   }
-  .media-body { display: flex; flex-direction: column; justify-content: center; }
+  .media-icon svg { width: 18px; height: 18px; }
   .media-outlet {
     font-size: 11px; font-weight: 600; text-transform: uppercase;
-    letter-spacing: 0.06em; color: var(--accent); margin-bottom: 4px;
+    letter-spacing: 0.06em; color: var(--accent); margin-bottom: 3px;
   }
-  .media-title { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 4px; line-height: 1.4; }
+  .media-title { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 3px; line-height: 1.4; }
   .media-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
 
   /* ── PROJECTS ── */
@@ -383,8 +384,6 @@
     .sidebar-avatar { width: 120px; height: 120px; font-size: 40px; }
     .content { padding: 28px 24px 60px; }
     .project-card { grid-template-columns: 1fr; }
-    .media-item { grid-template-columns: 1fr; }
-    .media-thumb { max-height: 160px; }
     .project-figure { border-right: none; border-bottom: 1px solid var(--border); }
     nav .nav-links.desktop { display: none; }
     .mobile-menu-btn { display: block; }
@@ -496,22 +495,20 @@
           <span class="news-date">2025</span>
           <span class="news-text">Four publications in <strong>Brain Stimulation</strong>, <strong>Neurophotonics</strong>, and <strong>Optica Publishing Group</strong>.</span>
         </li>
-        <li class="news-item fade-in">
-          <span class="news-date">Sep 2025</span>
-          <span class="news-text">Completed <strong>PhD in Neuroscience</strong> at the University of T&uuml;bingen.</span>
-        </li>
       </ul>
     </section>
 
     <!-- MEDIA -->
     <section id="media">
       <h2 class="section-title">Media</h2>
-      <a href="https://www.zdf.de/video/dokus/terra-x-maibrain-reise-ins-gehirn-dokureihe-mit-mai-thi-nguyen-kim-100/maibrain-reise-ins-gehirn-sinne-und-bewusstsein-mit-mai-thi-nguyen-kim-doku-100" target="_blank" rel="noopener" class="media-item fade-in">
-        <img class="media-thumb" src="https://www.zdf.de/assets/maibrain-teaser-sinne-100~768x432" alt="Terra X MaiBrain" onerror="this.style.display='none'">
-        <div class="media-body">
+      <a href="https://www.zdf.de/play/dokus/terra-x-maibrain-reise-ins-gehirn-dokureihe-mit-mai-thi-nguyen-kim-100/maibrain-reise-ins-gehirn-schlaf-und-traum-mit-mai-thi-nguyen-kim-doku-100" target="_blank" rel="noopener" class="media-item fade-in">
+        <div class="media-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </div>
+        <div>
           <div class="media-outlet">ZDF &middot; Terra X &middot; 2023</div>
-          <div class="media-title">MaiBrain &mdash; Reise ins Gehirn: Sinne und Bewusstsein</div>
-          <div class="media-desc">Featured interview in Mai Thi Nguyen-Kim&rsquo;s documentary on senses and consciousness, exploring how the brain constructs our perception of reality. German public television (ZDF).</div>
+          <div class="media-title">MaiBrain &mdash; Reise ins Gehirn: Schlaf und Traum</div>
+          <div class="media-desc">Featured interview in Mai Thi Nguyen-Kim&rsquo;s documentary on sleep and dreams. German public television (ZDF).</div>
         </div>
       </a>
     </section>
