@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lisa Bastian — Data Scientist & Neuroscience PhD</title>
 <meta name="description" content="Lisa Bastian — Time-Series Modeling, Data Science, and Neuroscience PhD Researcher at the University of Tübingen.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
 <style>
@@ -156,6 +157,29 @@
   }
   .sidebar-links a:hover { color: var(--accent); }
   .sidebar-links a svg { width: 20px; height: 20px; }
+
+  .sidebar-cv {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    margin-top: 16px; padding: 8px 16px; border-radius: 6px;
+    background: var(--accent); color: #fff; font-size: 13px; font-weight: 500;
+    text-decoration: none; transition: background 0.2s;
+  }
+  .sidebar-cv:hover { background: var(--accent-hover); }
+  .sidebar-cv svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  /* ── OPEN TO WORK CALLOUT ── */
+  .otw-callout {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: var(--accent-light); border: 1px solid var(--accent);
+    border-radius: var(--radius); padding: 14px 18px; margin-bottom: 28px;
+  }
+  .otw-icon {
+    flex-shrink: 0; width: 20px; height: 20px; color: var(--accent); margin-top: 1px;
+  }
+  .otw-text { font-size: 13.5px; color: var(--text-secondary); line-height: 1.55; }
+  .otw-text strong { color: var(--text); font-weight: 500; }
+  .otw-text a { color: var(--accent); text-decoration: none; font-weight: 500; }
+  .otw-text a:hover { text-decoration: underline; }
 
   /* ── MAIN CONTENT ── */
   .content {
@@ -444,7 +468,7 @@
   <aside class="sidebar">
     <img class="sidebar-avatar" src="assets/profile.jpg" alt="Lisa Bastian">
     <h1 class="sidebar-name">Lisa Bastian</h1>
-    <div class="sidebar-role">Neuroscience PhD &middot; Data Science<br>Machine Learning &middot; Neuro AI<br>Sleep &amp; Memory</div>
+    <div class="sidebar-role">Data Scientist &middot; Research Scientist<br>Machine Learning &middot; Neuro AI<br>Neuroscience PhD</div>
     <div class="sidebar-affil"><a href="https://uni-tuebingen.de" target="_blank" rel="noopener">University of T&uuml;bingen</a></div>
     <div class="sidebar-affil" style="margin-top: 2px;">T&uuml;bingen, Germany</div>
     <div class="sidebar-email">bastian.marie.lisa@gmail.com</div>
@@ -465,6 +489,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
       </a>
     </div>
+    <a href="assets/Lisa_Bastian_CV.pdf" download class="sidebar-cv">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download CV
+    </a>
   </aside>
 
   <!-- MAIN CONTENT -->
@@ -486,6 +514,13 @@
         <p>
           Last year, I spent time as a visiting researcher at <strong>Columbia University&rsquo;s</strong> Engineering department in New York. I&rsquo;m now relocating to NY and looking for industry roles as a <strong>Research Scientist in NeuroAI</strong> or as a <strong>(Clinical) Data Scientist</strong>. I love bridging the gap between neuroscience and modern ML, and I&rsquo;m excited to bring that to a team working on hard, meaningful problems.
         </p>
+      </div>
+
+      <div class="otw-callout">
+        <svg class="otw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        <div class="otw-text">
+          <strong>Open to work</strong> &mdash; I&rsquo;m relocating to <strong>New York City</strong> and actively looking for roles as a <strong>Research Scientist (NeuroAI)</strong> or <strong>(Clinical) Data Scientist</strong>. <a href="mailto:bastian.marie.lisa@gmail.com">Get in touch &rarr;</a>
+        </div>
       </div>
     </section>
 
